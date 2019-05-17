@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 06:26:02 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 12:32:44 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int					main(int ac, char **av)
 	if (g_opt.t)
 	{
 		files = explore_all_files(av + start, path, compare_time);
-		sort_list(files, compare_time);
+		sort_list(&files, compare_time);
 	}
 	else
 	{
 		files = explore_all_files(av + start, path, compare_name);
-		sort_list(files, compare_name);
+		sort_list(&files, compare_name);
 	}
 	display_file_tree(files, path, 1);
 	ft_flush_buf();

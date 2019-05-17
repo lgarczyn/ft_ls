@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 06:00:51 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 12:31:16 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct		s_file
 	struct s_file	*parent;
 	struct s_file	*child;
 	struct s_file	*next;
-	struct s_file	*prev;
 	struct s_len	*flen;
 	char			*name;
 	char			*gname;
@@ -135,7 +134,7 @@ void				error_args(char opt);
 void				error_memory(char *prog_name);
 void				error_file(char *name, int err);
 
-void				sort_list(t_file *head, t_cmp *f);
+void				sort_list(t_file **head, t_cmp *f);
 int					compare_time(t_file *low, t_file *high);
 int					compare_name(t_file *low, t_file *high);
 

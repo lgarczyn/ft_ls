@@ -6,71 +6,35 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:53:46 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 06:45:44 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 12:54:36 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void				update_children(t_file *to)
-{
-	t_file			*child;
 
-	child = to->child;
-	while (child)
+void				insert(t_file **list, t_file *file, t_cmp *f)
+{
+	while (*list && f(*list, file))
 	{
-		child->parent = to;
-		child = child->next;
+		list = &(*list)->next;
 	}
+	file->next = *list;
+	*list = file;
 }
 
-void				move_data(t_file *from, t_file *to)
+void				sort_list(t_file **head, t_cmp *f)
 {
-	to->name = from->name;
-	to->namelen = from->namelen;
-	to->gname = from->gname;
-	to->perms = from->perms;
-	to->owner = from->owner;
-	to->xattr = from->xattr;
-	to->links = from->links;
-	to->total = from->total;
-	to->size = from->size;
-	to->date = from->date;
-	to->flen = from->flen;
-	to->dev = from->dev;
-	to->child = from->child;
-	to->isarg = from->isarg;
-	to->isdir = from->isdir;
-	to->err_open = from->err_open;
-	to->err_stat = from->err_stat;
-	to->target = from->target;
-	update_children(to);
-}
+	t_file			*list;
+	t_file			*prev;
 
-void				sort_list(t_file *head, t_cmp *f)
-{
-	t_file			*fast;
-	t_file			*slow;
-	t_file			tmp;
-
-	if (!head || !head->next)
-		return ;
-	fast = head;
-	slow = head->next;
-	while (slow != NULL)
+	list = *head;
+	*head = NULL;
+	while (list)
 	{
-		while (fast != slow)
-		{
-			if (f(slow, fast))
-			{
-				move_data(fast, &tmp);
-				move_data(slow, fast);
-				move_data(&tmp, slow);
-			}
-			fast = fast->next;
-		}
-		slow = slow->next;
-		fast = head;
+		prev = list;
+		list = list->next;
+		insert(head, prev, f);
 	}
 }
 

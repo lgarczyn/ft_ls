@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 06:25:57 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 12:32:11 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void				explore_file(t_file *file, t_path *path, t_cmp *f)
 			child = child->next;
 			remove_path_name(path, prevlen);
 		}
-		sort_list(file->child, f);
+		sort_list(&file->child, f);
 	}
 	else
 		file->err_open = errno;
