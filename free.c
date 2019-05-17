@@ -6,17 +6,11 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:55:16 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:55:29 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:30:35 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void				free_str(char *str)
-{
-	if (str)
-		free(str);
-}
 
 void				free_path(t_path *path)
 {
@@ -29,12 +23,12 @@ t_file				*free_file(t_file *file)
 	t_file			*node;
 
 	node = file->next;
-	free_str(file->name);
-	free_str(file->gname);
-	free_str(file->perms);
-	free_str(file->owner);
-	if (file->flen)
-		free(file->flen);
+	free(file->name);
+	free(file->gname);
+	free(file->perms);
+	free(file->owner);
+	free(file->target);
+	free(file->flen);
 	free(file);
 	return (node);
 }

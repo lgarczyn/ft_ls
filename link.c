@@ -6,32 +6,20 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:59:06 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:35:47 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <limits.h>
 
 char				*get_linked_path(char *path)
 {
-	static char		*buffer;
-	static size_t	buffsize;
+	static char		buffer[PATH_MAX];
 	size_t			error;
 
-	if (buffer == NULL)
-	{
-		buffsize = 4096;
-		buffer = xmalloc(buffsize);
-	}
-	error = readlink(path, buffer, buffsize);
-	while (error == buffsize)
-	{
-		free(buffer);
-		buffsize *= 2;
-		buffer = xmalloc(buffsize);
-		error = readlink(path, buffer, buffsize);
-	}
-	if (error == (size_t)-1)
+	error = readlink(path, buffer, sizeof(buffer));
+	if ((ssize_t)error == -1)
 		return (NULL);
 	buffer[error] = '\0';
 	return (buffer);

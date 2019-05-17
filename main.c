@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2014/11/30 01:31:39 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:26:02 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int					main(int ac, char **av)
 	display_file_tree(files, path, 1);
 	ft_flush_buf();
 	ret = g_error.return_value;
+	free_path(path);
+	free_file_tree(files->parent);
 	return (ret);
 }
