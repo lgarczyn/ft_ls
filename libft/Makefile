@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/05/06 14:07:52 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/17 07:33:55 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/17 07:52:59 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,7 @@ RM = rm -f
 
 NOM = $(basename $(SRC))
 OBJ = $(addsuffix .o, $(NOM))
-DEB = -g
+DEB = 
 
 all: $(NAME)
 
