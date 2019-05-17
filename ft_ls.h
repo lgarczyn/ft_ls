@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2014/11/30 01:31:46 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:00:51 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef enum		e_arg
 	e_isarg = 1,
 }					t_arg;
 
+
+//simplify swap
 typedef struct		s_file
 {
 	struct s_file	*parent;
@@ -99,11 +101,11 @@ typedef struct		s_path
 
 typedef struct		s_opt
 {
-	int				l;
-	int				a;
-	int				t;
-	int				r;
-	int				cr;
+	int				l:1;
+	int				a:1;
+	int				t:1;
+	int				r:1;
+	int				cr:1;
 }					t_opt;
 
 typedef struct		s_error
