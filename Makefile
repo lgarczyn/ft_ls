@@ -34,7 +34,7 @@ LIB = -L libft/ -lft
 
 DEB = 
 
-OPT = -O2
+OPT = -Os
 
 all: $(NAME)
 
