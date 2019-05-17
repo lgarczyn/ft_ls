@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:51:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:51:49 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:42:31 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_path				*get_new_path(void)
 	t_path			*path;
 
 	path = (t_path*)xmalloc(sizeof(t_path));
-	path->buf = xmalloc(PATH_BUFF_SIZE);
+	path->buf = xmemalloc(PATH_BUFF_SIZE);
 	path->size = PATH_BUFF_SIZE;
 	path->len = 0;
 	return (path);
@@ -53,5 +53,7 @@ void				try_realloc_path(t_path *path, size_t newlen)
 	while (path->size <= newlen)
 		path->size *= 2;
 	buf = (char*)xmalloc(path->size);
-	ft_strcpy(path->buf, buf);
+	ft_strcpy(buf, path->buf);
+	free(path->buf);
+	path->buf = buf;
 }

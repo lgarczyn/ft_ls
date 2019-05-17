@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:53:46 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:53:47 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 06:45:44 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int					compare_time(t_file *low, t_file *high)
 		return (!g_opt.r);
 	else if (low->date < high->date)
 		return (g_opt.r);
-	if (ft_strcmp_fast(low->name, high->name, low->namelen) < 0)
+	if (ft_strncmp(low->name, high->name, low->namelen) < 0)
 		return (!g_opt.r);
 	return (g_opt.r);
 }
@@ -98,7 +98,7 @@ int					compare_name(t_file *low, t_file *high)
 		if (!low->isdir && high->isdir)
 			return (1);
 	}
-	if (ft_strcmp_fast(low->name, high->name, low->namelen) < 0)
+	if (ft_strncmp(low->name, high->name, low->namelen) < 0)
 		return (!g_opt.r);
 	return (g_opt.r);
 }
