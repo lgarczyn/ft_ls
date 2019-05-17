@@ -34,7 +34,7 @@ LIB = -L libft/ -lft
 
 DEB = 
 
-OPT = -Ofast
+OPT = -O2
 
 all: $(NAME)
 
@@ -44,7 +44,7 @@ $(NAME):$(OBJ)
 	cd libft && make
 	gcc $(FLG) $(OPT) $(OBJ) $(LIB) $(DEB) -o $(NAME)
 	
-%.o: %.c
+%.o: %.c ft_ls.h
 	gcc $(FLG) $(OPT) $(DEB) -c $< $
 
 clean:
