@@ -36,12 +36,13 @@ DEB = -g
 
 OPT = -Os
 
-all: $(NAME)
+all:
+	$(MAKE) -j8 $(NAME)
 
 libft:
 
 $(NAME):$(OBJ)
-	cd libft && make
+	cd libft && make -j8
 	gcc $(FLG) $(OPT) $(OBJ) $(LIB) $(DEB) -o $(NAME)
 	
 %.o: %.c ft_ls.h Makefile
@@ -56,6 +57,6 @@ fclean:
 	rm -rf $(NAME)
 	cd libft && make fclean
 
-re: fclean all
-
-optire: fclean opti
+re:
+	$(MAKE) fclean
+	$(MAKE) all
