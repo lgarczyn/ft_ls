@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 12:31:16 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:47:40 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/xattr.h>
 # include <sys/stat.h>
+# include <sys/acl.h>
 # include <stddef.h>
 # include <string.h>
 # include <dirent.h>
@@ -54,8 +55,6 @@ typedef enum		e_arg
 	e_isarg = 1,
 }					t_arg;
 
-
-//simplify swap
 typedef struct		s_file
 {
 	struct s_file	*parent;
@@ -83,7 +82,6 @@ typedef struct		s_file
 typedef struct		s_len
 {
 	int				perm;
-	int				xattr;
 	int				links;
 	int				owner;
 	int				gname;
@@ -119,6 +117,7 @@ typedef int			(t_cmp)(t_file *, t_file *);
 
 t_error				g_error;
 t_opt				g_opt;
+time_t				g_time;
 
 char				*get_linked_path(char *path);
 int					is_file_hidden(t_file *file);

@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 12:32:44 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 13:01:57 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int					main(int ac, char **av)
 	t_path			*path;
 	char			buffer[DISPLAY_BUFF_SIZE];
 
+	time(&g_time);
 	ft_buf(buffer, DISPLAY_BUFF_SIZE, STDOUT);
 	start = analyze_options(ac, av);
 	path = get_new_path();

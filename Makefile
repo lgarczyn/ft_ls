@@ -32,7 +32,7 @@ FLG = -Wall -Werror -Wextra
 
 LIB = -L libft/ -lft
 
-DEB = 
+DEB = -g
 
 OPT = -Os
 
@@ -44,7 +44,7 @@ $(NAME):$(OBJ)
 	cd libft && make
 	gcc $(FLG) $(OPT) $(OBJ) $(LIB) $(DEB) -o $(NAME)
 	
-%.o: %.c ft_ls.h
+%.o: %.c ft_ls.h Makefile
 	gcc $(FLG) $(OPT) $(DEB) -c $< $
 
 clean:

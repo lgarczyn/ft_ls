@@ -6,25 +6,30 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:57:15 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:43:04 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void				fill_file_xattr(t_file *file, char *path, t_len *len)
+void				fill_file_xattr(t_file *file, char *path)
 {
-	char			buf[4096];
 	ssize_t			ret;
 
-	ret = listxattr(path, buf, 4096, XATTR_NOFOLLOW);
+	ret = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
 	if (ret > 0)
-	{
 		file->xattr = '@';
-		len->xattr = 1;
-	}
 	else
-		file->xattr = ' ';
+	{
+		acl_t a = acl_get_file(path, ACL_TYPE_EXTENDED);
+		if (a)
+		{
+			file->xattr = '+';
+			acl_free(a);
+		}
+		else
+			file->xattr = ' ';
+	}
 }
 
 void				fill_file_names(t_file *file, t_stat *st, t_len *len)
@@ -90,7 +95,7 @@ void				fill_file_info(t_file *file, char *path)
 		file->isdir = (file->perms[0] == 'd') ? e_isdir : e_notdir;
 		if (!file->isarg || !file->isdir)
 		{
-			fill_file_xattr(file, path, len);
+			fill_file_xattr(file, path);
 			fill_file_names(file, &st, len);
 			fill_file_specs(file, &st, len);
 			fill_file_links(file, path);

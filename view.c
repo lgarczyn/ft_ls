@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/09 19:45:21 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/09 19:46:45 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:52:43 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 
 void				display_date(time_t date)
 {
-	time_t			curtime;
 	char			*datestr;
-	int				len;
 
-	time(&curtime);
 	datestr = ctime(&date) + 4;
-	if (date > curtime || date + SIX_MONTH <= curtime)
+	if (date > g_time || date + SIX_MONTH <= g_time)
 	{
-		ft_putnstr_buf(datestr, 7);
-		ft_putchar_buf(' ');
-		datestr += 16;
-		len = 0;
-		while (*datestr == ' ')
-			datestr++;
-		while (datestr[len] >= '0' && datestr[len] <= '9')
-			len++;
-		ft_putnstr_buf(datestr, len);
+		ft_putnstr_buf(datestr, 6);
+		ft_putnstr_buf("  ", 2);
+		ft_putnstr_buf(datestr + 16, 4);
 	}
 	else
 		ft_putnstr_buf(datestr, 12);
