@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:54:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:54:49 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/20 19:08:01 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int					has_displayable(t_file *file)
 {
 	file = file->child;
 	while (file)
-		if (is_file_hidden(file))
+		if (is_file_hidden(file) || file->err_open || file->err_stat)
 			file = file->next;
 		else
 			return (1);

@@ -6,26 +6,32 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 18:43:04 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/05/20 21:25:08 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <stdio.h>
 
 void				fill_file_xattr(t_file *file, char *path)
 {
 	ssize_t			ret;
+	acl_t			acl;
+	acl_entry_t		entry;
 
 	ret = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
 	if (ret > 0)
 		file->xattr = '@';
 	else
 	{
-		acl_t a = acl_get_file(path, ACL_TYPE_EXTENDED);
-		if (a)
+		acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+		if (acl)
 		{
-			file->xattr = '+';
-			acl_free(a);
+			if (acl_get_entry(acl, ACL_FIRST_ENTRY, &entry) > -1)
+				file->xattr = '+';
+			else
+				file->xattr = ' ';
+			acl_free(acl);
 		}
 		else
 			file->xattr = ' ';
