@@ -6,12 +6,11 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:53:46 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 12:54:36 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:00:21 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 
 void				insert(t_file **list, t_file *file, t_cmp *f)
 {
