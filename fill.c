@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/20 21:25:08 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:18:08 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,21 @@ void				fill_file_links(t_file *file, char *path)
 	}
 }
 
-void				fill_file_info(t_file *file, char *path)
+void				fill_file_info(t_file *file, char *path, t_len *len)
 {
 	t_stat			st;
-	t_len			*len;
 
-	if (is_file_hidden(file) && !file->isarg)
+	if (is_file_hidden(file))
 		return ;
-	if (file->parent && !file->parent->flen)
-		file->parent->flen = (t_len*)xmemalloc(sizeof(t_len));
 	if (lstat(path, &st) >= 0)
 	{
-		file->parent->total += st.st_blocks;
-		len = file->parent->flen;
+		len->total += st.st_blocks;
 		fill_file_perms(file, st.st_mode);
 		file->isdir = (file->perms[0] == 'd') ? e_isdir : e_notdir;
-		if (!file->isarg || !file->isdir)
-		{
-			fill_file_xattr(file, path);
-			fill_file_names(file, &st, len);
-			fill_file_specs(file, &st, len);
-			fill_file_links(file, path);
-		}
+		fill_file_xattr(file, path);
+		fill_file_names(file, &st, len);
+		fill_file_specs(file, &st, len);
+		fill_file_links(file, path);
 	}
 	else
 		file->err_stat = errno;

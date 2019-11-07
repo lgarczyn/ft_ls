@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:40 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:23:55 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,25 @@ typedef enum		e_arg
 {
 	e_notarg = 0,
 	e_isarg = 1,
+	e_isroot = 2,
 }					t_arg;
+
+typedef struct		s_len
+{
+	size_t			total;
+	char			perm;
+	int				links;
+	short			owner;
+	short			gname;
+	char			size;
+	char			dev;
+}					t_len;
 
 typedef struct		s_file
 {
-	struct s_file	*parent;
 	struct s_file	*child;
 	struct s_file	*next;
-	struct s_len	*flen;
+	struct s_len	child_lens;
 	char			*name;
 	char			*gname;
 	char			*perms;
@@ -68,7 +79,6 @@ typedef struct		s_file
 	char			*target;
 	char			xattr;
 	size_t			links;
-	size_t			total;
 	size_t			size;
 	time_t			date;
 	dev_t			dev;
@@ -78,16 +88,6 @@ typedef struct		s_file
 	t_arg			isarg;
 	t_type			isdir;
 }					t_file;
-
-typedef struct		s_len
-{
-	int				perm;
-	int				links;
-	int				owner;
-	int				gname;
-	int				size;
-	int				dev;
-}					t_len;
 
 typedef struct		s_path
 {
@@ -154,8 +154,8 @@ void				free_str(char *str);
 
 t_file				*explore_all_files(char **av, t_path *path, t_cmp *f);
 void				fill_file_perms(t_file *file, mode_t modes);
-void				fill_file_info(t_file *file, char *path);
-void				display_file_tree(t_file *file, t_path *path, int first);
+void				fill_file_info(t_file *file, char *path, t_len *len);
+void				display_folder(t_file *file, t_path *path, int first);
 void				display_full_info(t_file *file, t_len *len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:57:52 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:10:02 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void				add_child_to(t_file *alst, t_file *add)
 {
-	add->parent = alst;
 	add_node_to(&(alst->child), add);
 }
 
@@ -32,6 +31,7 @@ t_file				*new_node(char *const name)
 	t_file			*node;
 
 	node = (t_file*)xmemalloc(sizeof(t_file));
+	*node = (t_file){0};
 	node->name = ft_strdup(name);
 	node->namelen = ft_strlen(name);
 	return (node);

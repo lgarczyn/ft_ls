@@ -2,4 +2,4 @@ ft_ls
 *.o
 .DS_Store
 *.a
-
+.vscode

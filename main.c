@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/07 13:19:31 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:29:11 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int					main(int ac, char **av)
 {
 	int				start;
-	t_file			*files;
+	t_file			*root;
 	t_path			*path;
 	char			buffer[DISPLAY_BUFF_SIZE];
 
@@ -25,17 +25,15 @@ int					main(int ac, char **av)
 	path = get_new_path();
 	if (g_opt.t)
 	{
-		files = explore_all_files(av + start, path, compare_time);
-		sort_list(&files, compare_time);
+		root = explore_all_files(av + start, path, compare_time);
 	}
 	else
 	{
-		files = explore_all_files(av + start, path, compare_name);
-		sort_list(&files, compare_name);
+		root = explore_all_files(av + start, path, compare_name);
 	}
-	display_file_tree(files, path, 1);
+	display_folder(root, path, 1);
 	ft_flush_buf();
 	free_path(path);
-	free_file_tree(files->parent);
+	free_file_tree(root);
 	return (g_error.return_value);
 }

@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 12:32:11 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:19:39 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int					is_file_hidden(t_file *file)
 {
-	if (file->name[0] == '.' && !g_opt.a)
+	if (file->name[0] == '.' && !g_opt.a && !file->isarg)
 		return (1);
 	return (0);
 }
@@ -52,7 +52,7 @@ void				explore_file(t_file *file, t_path *path, t_cmp *f)
 		while (child)
 		{
 			prevlen = add_path_name(path, child->name);
-			fill_file_info(child, path->buf);
+			fill_file_info(child, path->buf, &file->child_lens);
 			if (g_opt.cr && should_explore_file(child))
 				explore_file(child, path, f);
 			child = child->next;
@@ -86,18 +86,19 @@ t_file				*explore_all_files(char **av, t_path *path, t_cmp *f)
 	if (!av[i])
 		return (explore_base_dir(path, f));
 	file = new_node("");
+	file->isarg = e_isroot;
 	while (av[i])
 	{
 		add_path_name(path, av[i]);
 		node = new_node(av[i]);
-		add_node_to(&(file->child), node);
+		add_child_to(file, node);
 		node->isarg = e_isarg;
-		node->parent = file;
-		fill_file_info(node, path->buf);
+		fill_file_info(node, path->buf, &file->child_lens);
 		if (is_openable(node, node->name))
 			explore_file(node, path, f);
 		remove_path_name(path, 0);
 		i++;
 	}
-	return (file->child);
+	sort_list(&file->child, f);
+	return (file);
 }
