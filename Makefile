@@ -25,8 +25,8 @@ SRC =	args.c \
 		link.c \
 		perm.c \
 		view.c \
-		
-OBJ = $(SRC:.c=.o)
+
+OBJ =  $(addprefix obj/, $(SRC:.c=.o))
 
 FLG = -Wall -Werror -Wextra
 
@@ -37,6 +37,7 @@ DEB =
 OPT = -Os -flto -march=native
 
 all:
+	mkdir -p obj
 	$(MAKE) -j8 $(NAME)
 
 libft:
@@ -45,8 +46,8 @@ $(NAME):$(OBJ)
 	cd libft && make -j8
 	gcc $(FLG) $(OPT) $(OBJ) $(LIB) $(DEB) -o $(NAME)
 	
-%.o: %.c ft_ls.h Makefile
-	gcc $(FLG) $(OPT) $(DEB) -c $< $
+obj/%.o: %.c ft_ls.h Makefile
+	gcc $(FLG) $(OPT) $(DEB) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ)

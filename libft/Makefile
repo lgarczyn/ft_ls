@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/05/06 14:07:52 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/11/07 15:18:53 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/11/07 15:45:05 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,13 +103,14 @@ SRC = ft_atoi.c \
 RM = rm -f
 
 NOM = $(basename $(SRC))
-OBJ = $(addsuffix .o, $(NOM))
-DEB = 
+OBJ = $(addprefix obj/, $(SRC:.c=.o))
 
-all: $(NAME)
+all:
+	mkdir -p obj
+	$(MAKE) -j8 $(NAME)
 
-%.o: src/%.c
-	$(CC) $(LFLAGS) -o $@ -c $< $(FLAGS) $(DEB)
+obj/%.o: src/%.c
+	$(CC) $(LFLAGS) -o $@ -c $< $(FLAGS)
 
 $(NAME) : $(OBJ)
 	ar rc $(NAME) $(OBJ)
