@@ -32,9 +32,9 @@ FLG = -Wall -Werror -Wextra
 
 LIB = -L libft/ -lft
 
-DEB = -g
+DEB =
 
-OPT = -Os
+OPT = -Os -flto -march=native
 
 all:
 	$(MAKE) -j8 $(NAME)

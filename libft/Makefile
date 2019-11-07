@@ -6,15 +6,15 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/05/06 14:07:52 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/17 07:52:59 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/11/07 12:57:51 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS = -Wextra -Wall
+FLAGS = -Wextra -Wall -Os -flto -march=native
 
-LFLAGS = -Os
+LFLAGS = -Os -flto -march=native
 
 CC = gcc
 
