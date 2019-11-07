@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/07 12:59:50 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:19:31 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int					main(int ac, char **av)
 {
 	int				start;
-	int				ret;
 	t_file			*files;
 	t_path			*path;
 	char			buffer[DISPLAY_BUFF_SIZE];
