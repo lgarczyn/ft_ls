@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:53:46 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/07 13:23:48 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/11 02:06:00 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void				sort_list(t_file **head, t_cmp *f)
 	t_file			*last;
 
 	prev = *head;
+	if (!prev)
+		return;
 	list = prev->next;
 	prev->next = NULL;
 	*head = prev;

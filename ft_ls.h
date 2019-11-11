@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/07 14:23:55 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/11 06:51:00 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <dirent.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <time.h>
 # include <pwd.h>
@@ -53,7 +54,6 @@ typedef enum		e_arg
 {
 	e_notarg = 0,
 	e_isarg = 1,
-	e_isroot = 2,
 }					t_arg;
 
 typedef struct		s_len
@@ -111,6 +111,13 @@ typedef struct		s_error
 	char			*prog_name;
 }					t_error;
 
+typedef struct		s_print_info
+{
+	bool			first_block_printed;
+	bool			single_block;
+}					t_print_info;
+
+
 typedef struct stat	t_stat;
 
 typedef int			(t_cmp)(t_file *, t_file *);
@@ -118,9 +125,10 @@ typedef int			(t_cmp)(t_file *, t_file *);
 t_error				g_error;
 t_opt				g_opt;
 time_t				g_time;
+t_print_info		g_print_info;
 
 char				*get_linked_path(char *path);
-int					is_file_hidden(t_file *file);
+bool				is_file_hidden(t_file *file);
 int					is_openable(t_file *file, char *path);
 
 void				set_option(char opt);
@@ -152,10 +160,10 @@ t_file				*free_file(t_file *file);
 void				free_path(t_path *path);
 void				free_str(char *str);
 
-t_file				*explore_all_files(char **av, t_path *path, t_cmp *f);
+void				explore_all_files(char **av, t_path *path, t_cmp *f);
 void				fill_file_perms(t_file *file, mode_t modes);
 void				fill_file_info(t_file *file, char *path, t_len *len);
-void				display_folder(t_file *file, t_path *path, int first);
+void				display_folder(t_file *file, char *path);
 void				display_full_info(t_file *file, t_len *len);
 
 #endif
