@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/11 06:44:53 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2019/11/11 06:54:08 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void				explore_base_dir(t_path *path, t_cmp *f)
 
 	g_print_info.single_block = true;
 	file = new_node(".");
+	file->isarg = true;
 	add_path_name(path, ".");
 	get_file_children(file, path);
 	explore_display_file(file, path, f);
