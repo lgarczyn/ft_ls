@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/11 06:51:00 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:25:25 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # include "libft/includes/libft.h"
 
-# define DISPLAY_BUFF_SIZE (4096 * 256)
+# define DISPLAY_BUFF_SIZE (4096)
 # define PATH_BUFF_SIZE 4096
 # define S_IRUSR 0000400
 # define S_IWUSR 0000200
@@ -103,6 +103,7 @@ typedef struct		s_opt
 	int				t:1;
 	int				r:1;
 	int				cr:1;
+	int				o:1;
 }					t_opt;
 
 typedef struct		s_error
@@ -162,7 +163,7 @@ void				free_str(char *str);
 
 void				explore_all_files(char **av, t_path *path, t_cmp *f);
 void				fill_file_perms(t_file *file, mode_t modes);
-void				fill_file_info(t_file *file, char *path, t_len *len);
+void				fill_file_info(t_file *file, int dir_fd, char *path, t_len *len);
 void				display_folder(t_file *file, char *path);
 void				display_full_info(t_file *file, t_len *len);
 

@@ -1,6 +1,6 @@
 # TODO
 
-get rid of flen, and therefore parent
+check if explore_base_dir needs that much logic
 
 * get rid of whole tree?
 * * only fix to flen

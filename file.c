@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/11 06:54:08 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/02 15:01:13 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,23 @@ void				get_file_children(t_file *file, t_path *path)
 	size_t			prevlen;
 	t_file			*child;
 	DIR				*dir;
+	int				dir_fd;
 	struct dirent	*entry;
 
 	if ((dir = opendir(path->buf)))
 	{
+		dir_fd = g_opt.o ? dirfd(dir) : 0;
 		while ((entry = readdir(dir)) != NULL)
 			add_child_to(file, new_node(entry->d_name));
-		closedir(dir);
 		child = file->child;
 		while (child)
 		{
 			prevlen = add_path_name(path, child->name);
-			fill_file_info(child, path->buf, &file->child_lens);
+			fill_file_info(child, dir_fd, path->buf, &file->child_lens);
 			remove_path_name(path, prevlen);
 			child = child->next;
 		}
+		closedir(dir);
 	}
 	else
 		file->err_open = errno;
@@ -125,7 +127,7 @@ void				explore_all_files(char **av, t_path *path, t_cmp *f)
 		node = new_node(av[i]);
 		add_child_to(file, node);
 		node->isarg = e_isarg;
-		fill_file_info(node, path->buf, &file->child_lens);
+		fill_file_info(node, 0, path->buf, &file->child_lens);
 		remove_path_name(path, 0);
 		i++;
 	}

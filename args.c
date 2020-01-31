@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:59:38 by lgarczyn          #+#    #+#             */
-/*   Updated: 2015/05/02 14:59:46 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/02 13:51:54 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void				set_option(char opt)
 		g_opt.t = 1;
 	else if (opt == '1')
 		g_opt.l = 0;
+	else if (opt == 'o')
+		g_opt.o = 1;
 	else
 		error_args(opt);
 }
