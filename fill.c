@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/02 15:03:02 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:32:22 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,13 @@ void				fill_file_info(t_file *file, int dir_fd, char *path, t_len *len)
 		len->total += st.st_blocks;
 		fill_file_perms(file, st.st_mode);
 		file->isdir = (file->perms[0] == 'd') ? e_isdir : e_notdir;
+		if (g_opt.t == false && g_opt.l == false)
+			return ;
+		fill_file_specs(file, &st, len);
 		if (g_opt.l == false)
 			return ;
 		fill_file_xattr(file, path);
 		fill_file_names(file, &st, len);
-		fill_file_specs(file, &st, len);
 		fill_file_links(file, path);
 	}
 	else
