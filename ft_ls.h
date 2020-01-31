@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 16:25:25 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:16:27 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef enum		e_arg
 {
 	e_notarg = 0,
 	e_isarg = 1,
+	e_root = 2,
 }					t_arg;
 
 typedef struct		s_len
@@ -161,10 +162,10 @@ t_file				*free_file(t_file *file);
 void				free_path(t_path *path);
 void				free_str(char *str);
 
-void				explore_all_files(char **av, t_path *path, t_cmp *f);
+void				explore_files(int ac, char **av, t_path *p, t_cmp *f);
 void				fill_file_perms(t_file *file, mode_t modes);
-void				fill_file_info(t_file *file, int dir_fd, char *path, t_len *len);
-void				display_folder(t_file *file, char *path);
+void				fill_file_info(t_file *file, int dir_fd, char *p, t_len *len);
+void				display_folder(t_file *file, char *p);
 void				display_full_info(t_file *file, t_len *len);
 
 #endif

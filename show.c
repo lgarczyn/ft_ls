@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:54:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/11 06:43:56 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:17:24 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void				display_folder(t_file *file, char *path)
 	{
 		if (g_print_info.first_block_printed)
 			ft_putchar_buf('\n');
+		g_print_info.first_block_printed = true;
 		ft_putstr_buf(path);
 		ft_putstr_buf(":\n");
 	}

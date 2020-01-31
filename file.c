@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/02 15:01:13 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:17:10 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,14 @@ void				get_file_children(t_file *file, t_path *path)
 		file->err_open = errno;
 }
 
-#include <stdio.h>
-
 void				explore_display_file(t_file *file, t_path *path, t_cmp *f)
 {
 	t_file			*child;
 	t_file			*prev;
 	size_t			prevlen;
 
-	sort_list(&file->child, f);
+	sort_list(&file->child, file->isarg == e_root ? compare_name : f);
 	display_folder(file, path->buf);
-	g_print_info.first_block_printed = true;
 	child = file->child;
 	while (child)
 	{
@@ -95,33 +92,22 @@ void				explore_display_file(t_file *file, t_path *path, t_cmp *f)
 	file->child = NULL;
 }
 
-void				explore_base_dir(t_path *path, t_cmp *f)
-{
-	t_file			*file;
-
-	g_print_info.single_block = true;
-	file = new_node(".");
-	file->isarg = true;
-	add_path_name(path, ".");
-	get_file_children(file, path);
-	explore_display_file(file, path, f);
-	remove_path_name(path, 0);
-	free_file(file);
-}
-
-void				explore_all_files(char **av, t_path *path, t_cmp *f)
+void				explore_files(int ac, char **av, t_path *path, t_cmp *f)
 {
 	t_file			*file;
 	t_file			*node;
 	int				i;
 
 	i = 0;
-	if (!av[i])
-		return (explore_base_dir(path, f));
-	if (!av[i + 1])
-		g_print_info.single_block = true;
+	if (ac == 0)
+	{
+		av[0] = ".";
+		ac = 1;
+	}
+	g_print_info.single_block = (ac == 1);
 	file = new_node("");
-	while (av[i])
+	file->isarg = e_root;
+	while (i < ac)
 	{
 		add_path_name(path, av[i]);
 		node = new_node(av[i]);
