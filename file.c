@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 18:17:10 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:49:40 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ void				explore_display_file(t_file *file, t_path *path, t_cmp *f)
 	t_file			*prev;
 	size_t			prevlen;
 
-	sort_list(&file->child, file->isarg == e_root ? compare_name : f);
-	display_folder(file, path->buf);
 	child = file->child;
+	file->child = NULL;
 	while (child)
 	{
 		if (should_get_file_children(child))
 		{
 			prevlen = add_path_name(path, child->name);
 			get_file_children(child, path);
+			sort_list(&child->child, f);
+			display_folder(child, path->buf);
 			explore_display_file(child, path, f);
 			remove_path_name(path, prevlen);
 		}
@@ -117,6 +118,7 @@ void				explore_files(int ac, char **av, t_path *path, t_cmp *f)
 		remove_path_name(path, 0);
 		i++;
 	}
+	sort_list(&file->child, compare_name);
 	explore_display_file(file, path, f);
 	free_file(file);
 }
