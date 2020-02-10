@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 21:22:49 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:32:11 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ typedef struct			s_path
 
 typedef struct			s_opt
 {
-	int					l:1;
-	int					a:1;
-	int					t:1;
-	int					r:1;
-	int					cr:1;
-	int					o:1;
+	bool				l:1;
+	bool				a:1;
+	bool				t:1;
+	bool				r:1;
+	bool				cr:1;
+	bool				o:1;
 }						t_opt;
 
 typedef struct			s_error
