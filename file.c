@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 17:49:40 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:12:12 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,24 @@ void				get_file_children(t_file *file, t_path *path)
 
 void				explore_display_file(t_file *file, t_path *path, t_cmp *f)
 {
-	t_file			*child;
 	t_file			*prev;
 	size_t			prevlen;
 
-	child = file->child;
-	file->child = NULL;
-	while (child)
+	while (file)
 	{
-		if (should_get_file_children(child))
+		if (should_get_file_children(file))
 		{
-			prevlen = add_path_name(path, child->name);
-			get_file_children(child, path);
-			sort_list(&child->child, f);
-			display_folder(child, path->buf);
-			explore_display_file(child, path, f);
+			prevlen = add_path_name(path, file->name);
+			get_file_children(file, path);
+			sort_list(&file->child, f);
+			display_folder(file, path->buf);
+			explore_display_file(file->child, path, f);
 			remove_path_name(path, prevlen);
 		}
-		prev = child;
-		child = child->next;
+		prev = file;
+		file = file->next;
 		free_file(prev);
 	}
-	file->child = NULL;
 }
 
 void				explore_files(int ac, char **av, t_path *path, t_cmp *f)
@@ -106,19 +102,17 @@ void				explore_files(int ac, char **av, t_path *path, t_cmp *f)
 		ac = 1;
 	}
 	g_print_info.single_block = (ac == 1);
-	file = new_node("");
-	file->isarg = e_root;
+	file = NULL;
 	while (i < ac)
 	{
 		add_path_name(path, av[i]);
 		node = new_node(av[i]);
-		add_child_to(file, node);
+		add_node_to(&file, node);
 		node->isarg = e_isarg;
 		fill_file_info(node, 0, path->buf, &file->child_lens);
 		remove_path_name(path, 0);
 		i++;
 	}
-	sort_list(&file->child, compare_name);
+	sort_list(&file, compare_name);
 	explore_display_file(file, path, f);
-	free_file(file);
 }

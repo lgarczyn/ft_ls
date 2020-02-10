@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 18:16:27 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:07:44 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef enum		e_arg
 {
 	e_notarg = 0,
 	e_isarg = 1,
-	e_root = 2,
 }					t_arg;
 
 typedef struct		s_len
