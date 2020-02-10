@@ -6,14 +6,20 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 18:32:22 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:33:21 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdio.h>
 
-void				fill_file_xattr(t_file *file, char *path)
+void		set_max_val(int current_len, int *max_len)
+{
+	if (current_len > *max_len)
+		*max_len = current_len;
+}
+
+void		fill_file_xattr(t_file *file, char *path)
 {
 	ssize_t			ret;
 	acl_t			acl;
@@ -38,7 +44,7 @@ void				fill_file_xattr(t_file *file, char *path)
 	}
 }
 
-void				fill_file_names(t_file *file, t_stat *st, t_len *len)
+void		fill_file_names(t_file *file, t_stat *st, t_len *len)
 {
 	struct group	*grp;
 	struct passwd	*pwd;
@@ -48,31 +54,31 @@ void				fill_file_names(t_file *file, t_stat *st, t_len *len)
 		file->gname = ft_strdup(grp->gr_name);
 	else
 		file->gname = ft_itoa(st->st_gid);
-	len->gname = MAX((int)ft_strlen(file->gname), len->gname);
+	set_max_val(ft_strlen(file->gname), &len->gname);
 	pwd = getpwuid(st->st_uid);
 	if (pwd)
 		file->owner = ft_strdup(pwd->pw_name);
 	else
 		file->owner = ft_itoa(st->st_uid);
-	len->owner = MAX((int)ft_strlen(file->owner), len->owner);
+	set_max_val(ft_strlen(file->owner), &len->owner);
 }
 
-void				fill_file_specs(t_file *file, t_stat *st, t_len *len)
+void		fill_file_specs(t_file *file, t_stat *st, t_len *len)
 {
 	file->date = st->st_mtimespec.tv_sec;
 	file->size = st->st_size;
 	file->dev = st->st_rdev;
 	file->links = st->st_nlink;
-	len->links = MAX(ft_intlen(file->links), len->links);
+	set_max_val(ft_intlen(file->links), &len->links);
 	if (file->perms[0] == 'c' || file->perms[0] == 'b')
-		len->size = MAX(9, len->size);
+		set_max_val(9, &len->size);
 	else
-		len->size = MAX(ft_intlen(file->size), len->size);
+		set_max_val(ft_intlen(file->size), &len->size);
 }
 
-void				fill_file_links(t_file *file, char *path)
+void		fill_file_links(t_file *file, char *path)
 {
-	char			*link;
+	char	*link;
 
 	if (file->perms[0] == 'l')
 	{
@@ -84,10 +90,10 @@ void				fill_file_links(t_file *file, char *path)
 	}
 }
 
-void				fill_file_info(t_file *file, int dir_fd, char *path, t_len *len)
+void		fill_file_info(t_file *file, int dir_fd, char *path, t_len *len)
 {
-	t_stat			st;
-	int				r;
+	t_stat	st;
+	int		r;
 
 	if (is_file_hidden(file))
 		return ;

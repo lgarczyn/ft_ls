@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:59:38 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/02 13:51:54 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:37:52 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					analyze_options(int ac, char **av)
 		if (av[i][1] == '\0')
 			return (i);
 		if (av[i][1] == '-' && !av[i][2])
-			return (MIN(i + 1, ac));
+			return (i + 1);
 		j = 0;
 		while (av[i][++j])
 			set_option(av[i][j]);

@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 18:07:44 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:25:42 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@
 
 # include "libft/includes/libft.h"
 
-# define DISPLAY_BUFF_SIZE (4096)
+# include "types.h"
+
+# define DISPLAY_BUFF_SIZE 4096
 # define PATH_BUFF_SIZE 4096
 # define S_IRUSR 0000400
 # define S_IWUSR 0000200
@@ -42,129 +44,52 @@
 # define S_IROTH 0000004
 # define S_IWOTH 0000002
 # define S_IXOTH 0000001
-# define SIX_MONTH (182 * 24 * 3600)
+# define SIX_MONTH 15724800
 
-typedef enum		e_type
-{
-	e_notdir = 0,
-	e_isdir = 1,
-}					t_type;
+typedef int	(t_cmp)(t_file *, t_file *);
 
-typedef enum		e_arg
-{
-	e_notarg = 0,
-	e_isarg = 1,
-}					t_arg;
+t_error		g_error;
+t_opt		g_opt;
+time_t		g_time;
+t_print		g_print_info;
 
-typedef struct		s_len
-{
-	size_t			total;
-	char			perm;
-	int				links;
-	short			owner;
-	short			gname;
-	char			size;
-	char			dev;
-}					t_len;
+char		*get_linked_path(char *path);
+bool		is_file_hidden(t_file *file);
+int			is_openable(t_file *file, char *path);
 
-typedef struct		s_file
-{
-	struct s_file	*child;
-	struct s_file	*next;
-	struct s_len	child_lens;
-	char			*name;
-	char			*gname;
-	char			*perms;
-	char			*owner;
-	char			*target;
-	char			xattr;
-	size_t			links;
-	size_t			size;
-	time_t			date;
-	dev_t			dev;
-	int				err_open;
-	int				err_stat;
-	int				namelen;
-	t_arg			isarg;
-	t_type			isdir;
-}					t_file;
+void		set_option(char opt);
+int			analyze_options(int argc, char **argv);
 
-typedef struct		s_path
-{
-	char			*buf;
-	size_t			size;
-	size_t			len;
-}					t_path;
+void		*xmemalloc(size_t size);
+void		*xmalloc(size_t size);
 
-typedef struct		s_opt
-{
-	int				l:1;
-	int				a:1;
-	int				t:1;
-	int				r:1;
-	int				cr:1;
-	int				o:1;
-}					t_opt;
+void		error_args(char opt);
+void		error_memory(char *prog_name);
+void		error_file(char *name, int err);
 
-typedef struct		s_error
-{
-	int				return_value;
-	char			*prog_name;
-}					t_error;
+void		sort_list(t_file **head, t_cmp *f);
+int			compare_time(t_file *low, t_file *high);
+int			compare_name(t_file *low, t_file *high);
 
-typedef struct		s_print_info
-{
-	bool			first_block_printed;
-	bool			single_block;
-}					t_print_info;
+t_file		*new_node(char *const name);
+void		add_node_to(t_file **alst, t_file *add);
+void		add_child_to(t_file *alst, t_file *add);
 
+t_path		*get_new_path(void);
+int			set_path_name(t_path *path, char *name);
+int			add_path_name(t_path *path, char *name);
+void		remove_path_name(t_path *path, size_t prevlen);
+void		try_realloc_path(t_path *path, size_t newlen);
 
-typedef struct stat	t_stat;
+void		free_file_tree(t_file *file);
+t_file		*free_file(t_file *file);
+void		free_path(t_path *path);
+void		free_str(char *str);
 
-typedef int			(t_cmp)(t_file *, t_file *);
-
-t_error				g_error;
-t_opt				g_opt;
-time_t				g_time;
-t_print_info		g_print_info;
-
-char				*get_linked_path(char *path);
-bool				is_file_hidden(t_file *file);
-int					is_openable(t_file *file, char *path);
-
-void				set_option(char opt);
-int					analyze_options(int argc, char **argv);
-
-void				*xmemalloc(size_t size);
-void				*xmalloc(size_t size);
-
-void				error_args(char opt);
-void				error_memory(char *prog_name);
-void				error_file(char *name, int err);
-
-void				sort_list(t_file **head, t_cmp *f);
-int					compare_time(t_file *low, t_file *high);
-int					compare_name(t_file *low, t_file *high);
-
-t_file				*new_node(char *const name);
-void				add_node_to(t_file **alst, t_file *add);
-void				add_child_to(t_file *alst, t_file *add);
-
-t_path				*get_new_path(void);
-int					set_path_name(t_path *path, char *name);
-int					add_path_name(t_path *path, char *name);
-void				remove_path_name(t_path *path, size_t prevlen);
-void				try_realloc_path(t_path *path, size_t newlen);
-
-void				free_file_tree(t_file *file);
-t_file				*free_file(t_file *file);
-void				free_path(t_path *path);
-void				free_str(char *str);
-
-void				explore_files(int ac, char **av, t_path *p, t_cmp *f);
-void				fill_file_perms(t_file *file, mode_t modes);
-void				fill_file_info(t_file *file, int dir_fd, char *p, t_len *len);
-void				display_folder(t_file *file, char *p);
-void				display_full_info(t_file *file, t_len *len);
+void		explore_files(int ac, char **av, t_path *path, t_cmp *f);
+void		fill_file_perms(t_file *file, mode_t modes);
+void		fill_file_info(t_file *file, int dir_fd, char *path, t_len *len);
+void		display_folder(t_file *file, char *path);
+void		display_full_info(t_file *file, t_len *len);
 
 #endif

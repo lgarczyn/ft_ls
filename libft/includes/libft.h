@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 16:18:53 by lgarczyn          #+#    #+#             */
-/*   Updated: 2014/11/07 16:18:55 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:26:01 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 # include <errno.h>
 # include <stdio.h>
 
-# define MIN(a,b)			(((a)<(b))?(a):(b))
-# define MAX(a,b)			(((a)>(b))?(a):(b))
-# define CLAMP(x,lo,hi)		MIN(hi, MAX(lo,x))
-# define ROOF(a, b)			((a + b - 1) / b)
-# define ROUND_MULT(a, b)	(ROOF(a, b) * b)
 # define STDIN				0
 # define STDOUT				1
 # define STDERR				2
