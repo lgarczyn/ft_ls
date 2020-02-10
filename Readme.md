@@ -3,8 +3,7 @@
 ## TODO
 
 check if dir sorting is necessary in sort
-clean more logic
-norminette
+repair err
 
 ## Bonuses
 
