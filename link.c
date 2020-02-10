@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:35:33 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:41:36 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int					is_openable(t_file *file, char *path)
 	t_stat			st;
 	char			*link;
 
-	if (file->perms[0] == 'd')
+	if (file->isdir)
 		return (1);
 	else if (file->perms[0] == 'l')
 	{

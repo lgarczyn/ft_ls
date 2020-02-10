@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:57:05 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:33:21 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 20:37:01 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,28 @@ void		fill_file_xattr(t_file *file, char *path)
 	acl_entry_t		entry;
 
 	ret = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
+	file->xattr = ' ';
 	if (ret > 0)
-		file->xattr = '@';
-	else
 	{
-		acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
-		if (acl)
-		{
-			if (acl_get_entry(acl, ACL_FIRST_ENTRY, &entry) > -1)
-				file->xattr = '+';
-			else
-				file->xattr = ' ';
-			acl_free(acl);
-		}
+		file->xattr = '@';
+		return ;
+	}
+	acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+	if (acl)
+	{
+		if (acl_get_entry(acl, ACL_FIRST_ENTRY, &entry) > -1)
+			file->xattr = '+';
 		else
 			file->xattr = ' ';
+		acl_free(acl);
 	}
 }
 
-void		fill_file_names(t_file *file, t_stat *st, t_len *len)
+void		fill_file_names(t_file *file, t_stat *st, t_len *len, char *path)
 {
 	struct group	*grp;
 	struct passwd	*pwd;
+	char			*link;
 
 	grp = getgrgid(st->st_gid);
 	if (grp)
@@ -61,6 +61,14 @@ void		fill_file_names(t_file *file, t_stat *st, t_len *len)
 	else
 		file->owner = ft_itoa(st->st_uid);
 	set_max_val(ft_strlen(file->owner), &len->owner);
+	if (file->perms[0] == 'l')
+	{
+		link = get_linked_path(path);
+		if (link == NULL)
+			file->err_stat = errno;
+		else
+			file->target = ft_strdup(link);
+	}
 }
 
 void		fill_file_specs(t_file *file, t_stat *st, t_len *len)
@@ -74,20 +82,6 @@ void		fill_file_specs(t_file *file, t_stat *st, t_len *len)
 		set_max_val(9, &len->size);
 	else
 		set_max_val(ft_intlen(file->size), &len->size);
-}
-
-void		fill_file_links(t_file *file, char *path)
-{
-	char	*link;
-
-	if (file->perms[0] == 'l')
-	{
-		link = get_linked_path(path);
-		if (link == NULL)
-			file->err_stat = errno;
-		else
-			file->target = ft_strdup(link);
-	}
 }
 
 void		fill_file_info(t_file *file, int dir_fd, char *path, t_len *len)
@@ -112,8 +106,7 @@ void		fill_file_info(t_file *file, int dir_fd, char *path, t_len *len)
 		if (g_opt.l == false)
 			return ;
 		fill_file_xattr(file, path);
-		fill_file_names(file, &st, len);
-		fill_file_links(file, path);
+		fill_file_names(file, &st, len, path);
 	}
 	else
 		file->err_stat = errno;

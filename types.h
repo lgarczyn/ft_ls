@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:37:02 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 20:38:01 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct		s_error
 typedef struct		s_print
 {
 	bool			first_block_printed;
-	bool			single_block;
+	bool			multi_block;
 }					t_print;
 
 typedef struct stat	t_stat;
