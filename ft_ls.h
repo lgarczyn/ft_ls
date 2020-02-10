@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 21:08:18 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:48:53 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef int	(t_cmp)(t_file *, t_file *);
 
 t_error		g_error;
 t_opt		g_opt;
-time_t		g_time;
 t_print		g_print_info;
 
 char		*get_linked_path(char *path);

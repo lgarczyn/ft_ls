@@ -32,7 +32,7 @@ ls -1l . ~ o >> /tmp/b
 ./ft_ls -Rarl >> /tmp/a
 ./ft_ls -l . ~ o >> /tmp/a
 
-code -- diff /tmp/a /tmp/b
+code --diff /tmp/a /tmp/b
 
 # ---
 

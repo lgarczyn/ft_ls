@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/09 19:45:21 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:37:30 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:47:34 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void				display_date(time_t date)
 {
 	char			*datestr;
+	time_t			curr_time;
 
+	time(&curr_time);
 	datestr = ctime(&date) + 4;
-	if (date > g_time || date + SIX_MONTH <= g_time)
+	if (date > curr_time || date + SIX_MONTH < curr_time)
 	{
 		ft_putnstr_buf(datestr, 6);
 		ft_putnstr_buf("  ", 2);
