@@ -3,7 +3,7 @@
 ## TODO
 
 check if dir sorting is necessary in sort
-repair err
+fix dates slight error
 
 ## Bonuses
 
@@ -12,6 +12,7 @@ repair err
 * perf mode
 * error where they matter
 * -1 ?
+* fully accurate ls
 
 ### Not done
 
