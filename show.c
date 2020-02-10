@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:54:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 18:17:24 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:22:08 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ int					has_displayable(t_file *file)
 
 void				display_folder(t_file *file, char *path)
 {
-	if ((!g_print_info.single_block || g_print_info.first_block_printed) && is_openable(file, path))
+	if (file->isarg != e_root)
 	{
-		if (g_print_info.first_block_printed)
+		if (g_print_info.first_block_printed == true)
 			ft_putchar_buf('\n');
 		g_print_info.first_block_printed = true;
-		ft_putstr_buf(path);
-		ft_putstr_buf(":\n");
+		if (g_print_info.single_block == false && is_openable(file, path))
+		{
+			ft_putstr_buf(path);
+			ft_putstr_buf(":\n");
+		}
+		g_print_info.single_block = false;
 	}
 	if (file->err_open)
 		error_file(file->name, (int)file->err_open);
