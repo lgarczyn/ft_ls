@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:54:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 20:40:23 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:24:08 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void				display_file_list(t_file *file, t_len *lens)
 {
 	while (file)
 	{
+		g_print_info.first_block_printed = true;
 		if (!is_file_hidden(file) && !(file->isarg && file->isdir))
 		{
 			if (g_opt.l)
@@ -59,6 +60,5 @@ void				display_folder(t_file *file, char *path)
 			ft_putnbr_buf(file->child_lens.total);
 			ft_putchar_buf('\n');
 		}
-		display_file_list(file->child, &file->child_lens);
 	}
 }

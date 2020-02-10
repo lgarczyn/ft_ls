@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 20:10:25 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:08:18 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ t_file		*free_file(t_file *file);
 void		free_path(t_path *path);
 void		free_str(char *str);
 
-void		explore_files(int ac, char **av, t_path *path, t_cmp *f);
+void		explore_args(int ac, char **av, t_path *path, t_cmp *f);
 void		fill_file_perms(t_file *file, mode_t modes);
 void		fill_file_info(t_file *file, int dir_fd, char *path, t_len *len);
 void		display_folder(t_file *file, char *path);
+void		display_file_list(t_file *file, t_len *lens);
 void		display_full_info(t_file *file, t_len *len);
 
 #endif

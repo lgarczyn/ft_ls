@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:30 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/01/31 16:44:25 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:30:07 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int					main(int ac, char **av)
 	start = analyze_options(ac, av);
 	path = get_new_path();
 	cmp = g_opt.t ? compare_time : compare_name;
-	explore_files(ac - start, av + start, path, cmp);
+	if (ac - start > 1)
+		g_print_info.multi_block = true;
+	explore_args(ac - start, av + start, path, cmp);
 	ft_flush_buf();
 	free_path(path);
 	return (g_error.return_value);
