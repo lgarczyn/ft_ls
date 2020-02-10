@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:54:47 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 18:08:20 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:36:26 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				display_file_list(t_file *file, t_len *lens)
 {
 	while (file)
 	{
-		if (!is_file_hidden(file) && !(file->isarg && file->perms && file->perms[0] == 'd'))
+		if (!is_file_hidden(file) && !(file->isarg && file->perms[0] == 'd'))
 		{
 			if (g_opt.l)
 				display_full_info(file, lens);

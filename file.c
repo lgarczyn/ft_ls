@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:58:58 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:32:35 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:35:03 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool				should_get_file_children(t_file *file)
 {
 	if (!g_opt.cr && !file->isarg)
 		return (false);
-	if (!file->perms || file->err_stat)
+	if (file->err_stat)
 		return (false);
 	if (file->perms[0] != 'd')
 		return (false);

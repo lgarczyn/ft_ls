@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/09 19:45:21 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/05/17 18:52:43 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:37:30 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void				display_date(time_t date)
 
 void				display_size(t_file *file, t_len *len)
 {
-	if (file->perms && (file->perms[0] == 'c' || file->perms[0] == 'b'))
+	if (file->perms[0] == 'c' || file->perms[0] == 'b')
 	{
 		ft_putspace_buf(len->size - 5 - ft_intlen(major(file->dev)));
 		ft_putnbr_buf(major(file->dev));

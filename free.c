@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/02 14:55:16 by lgarczyn          #+#    #+#             */
-/*   Updated: 2019/11/07 13:43:49 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:35:14 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_file				*free_file(t_file *file)
 	node = file->next;
 	free(file->name);
 	free(file->gname);
-	free(file->perms);
 	free(file->owner);
 	free(file->target);
 	free(file);

@@ -6,7 +6,7 @@
 /*   By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/30 01:31:43 by lgarczyn          #+#    #+#             */
-/*   Updated: 2020/02/10 19:34:03 by lgarczyn         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:37:02 by lgarczyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ typedef struct		s_file
 	struct s_len	child_lens;
 	char			*name;
 	char			*gname;
-	char			*perms;
 	char			*owner;
 	char			*target;
+	char			perms[11];
 	char			xattr;
 	size_t			links;
 	size_t			size;
